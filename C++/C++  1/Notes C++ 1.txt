@@ -1,0 +1,37 @@
+Chapter 1
+-----------------------------------
+An editor is used to create the text files that contain the C++ code. There are two different types of
+files:
+• Source files
+Source files contain definitions of global variables and functions. Each C++ program consists of at
+least one source file.
+• Header files
+Header files, also called include files, provide the information needed in various source files.
+This includes:
+• Type definitions, e.g. class definitions
+• Declarations of global variables and functions
+• Definitions of macros and inline functions\
+
+1.1.3 Compilers
+A translation unit consists of a source file and the included header files. The compiler generates an
+object file (also called module) from each translation unit; the object file contains the machine
+code. In addition to the compilers that generate the machine code directly, there are also C++ into
+C translation programs, so-called »C-Front-Compilers«. They translate a C++ program into a C
+program. Only then is the object file created with a standard C compiler.
+
+The linker combines object files into an executable file. Besides the self-generated object files, it
+also contains the startup-code and the modules with the used functions and classes of the standard library.
+
+***To print text on the screen, we need a C++ class called iostream
+
+***The #include directive includes frequently used functions into the source code
+and makes them usable within the program
+
+using namespace std;
+Specifies the namespace in which all library elements are declared in C++
+
+The first line #include <cstdlib> is only used to include system statements like
+system("pause"); and system("cls“); and can be omitted if these statements are not used.
+
+STL – Standard Template Library
+The STL provides functionalities for these containers, such as search and sort functions or insert and delete operations.
