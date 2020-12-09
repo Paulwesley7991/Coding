@@ -21,3 +21,13 @@ program. Only then is the object file created with a standard C compiler.
 
 The linker combines object files into an executable file. Besides the self-generated object files, it
 also contains the startup-code and the modules with the used functions and classes of the standard library.
+
+
+The output of the umlaut 'ö' using the hexadecimal notation would look like this:
+cout << "Heute ist ein sch\x94ner Tag!" << endl; // \x initiates a hexadecimal escape sequence
+(“Heute ist ein schöner Tag!” translated into English is “Today is a beautiful day.”)
+
+However, this version has a catch: If the next character can also be displayed in hexadecimal or
+octal form, this character will also be interpreted. For example, in the word 'Oberfl\x84che' (Oberfläche=surface), '\x84' would not be replaced with the character 'ä', but 'x84c' with the number
+'2124'. However, there is a little trick for this problem:
+cout << "Oberfl\x84 \bche!" << endl;
