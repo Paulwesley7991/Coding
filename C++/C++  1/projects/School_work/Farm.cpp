@@ -19,11 +19,11 @@ public:
 	void EnterAnimal(void);
 	void ShowAnimal(void);
 	void SellAnimal(void);
-	
+
 	//getter
 	int get_Nr() { return AnimalNumber; }
 	bool get_Stock() { return Stock; }
-	
+
 	//setter
 	void set_Nr(int nr) { AnimalNumber = nr; }
 
@@ -66,7 +66,7 @@ int main(void)
 int s=0, eing, nr; // declared integer s to zero is used for the menu
 int i = 0;
 int input;
-Animal animals[100] = Animal();
+Animal animals[100];
 
 
 cout << " Welcome to the FARM MANAGEMENT" << endl << endl
@@ -88,7 +88,7 @@ cout << " Welcome to the FARM MANAGEMENT" << endl << endl
 	//switch query loads into the individual menu items
 
 	switch(input) {
-	
+
 		case 1 : {
 			system("cls");
 			animals[i].EnterAnimal(); // Function to enter an animal
@@ -97,7 +97,7 @@ cout << " Welcome to the FARM MANAGEMENT" << endl << endl
 			i++;
 			break;
 		}
-		
+
 		case 2 : { //Function to show all the animals
 			system("cls");
 			for(int j = 0; j < i; j++)
@@ -107,7 +107,7 @@ cout << " Welcome to the FARM MANAGEMENT" << endl << endl
 			}
 			break;
 		}
-		
+
 		case 3 : { //Function to sell an animal
 			system("cls");
 			cout << "Please enter the animal number: " << endl;
@@ -130,27 +130,27 @@ cout << " Welcome to the FARM MANAGEMENT" << endl << endl
 			}
 			if(!tmp) //if no animal was found
 				cout << "Animal with number " << nr << " was not found." << endl;
-				
+
 			break;
 		}
-		
+
 		/* case 0 terminates program
 	because s is set to 1*/
-		
+
 		case 0:
 		{
 			s = 1 ;
 			break;
 		}
-		
+
 		/* default
 		menu retains when other digits are entered*/
-		
+
 		default:
 		{
 			s = 0 ;
 		}
-	}	
+	}
 	system(" pause");
 };
 };
