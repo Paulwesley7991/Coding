@@ -84,3 +84,8 @@ In practice, it is often possible to replace one with
 the other. The difference is that you can always assign a different value to a pointer and thus refer
 to another variable. A reference, on the other hand, is the substitute for the passed variable and
 can no longer be referenced to another target variable after the passing of the parameter.
+
+2.8 Member access operators
+The following member access operators are used for direct access to members (data members
+and functions) of a class: “.” and “->”. The difference between the two operators is that "." is
+applied to a variable of a class type, while "->" is used for pointers to class types.
