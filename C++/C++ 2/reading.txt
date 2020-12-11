@@ -60,3 +60,27 @@ The use of pointers and the use of arrays are very similar. The differences are 
 • An array (i.e. array name) has no storage space in this sense. An array is a symbolic name
 for the address (= the beginning) of a memory area. If the name of an array variable is used
 without the index operator ([ ]), the address of the first array element is returned.
+
+
+
+With pointers to arrays, no dereferencing operator may be used
+when using the index.
+
+
+A reference is a special type of pointer that allows you to treat a pointer like a regular object.
+References are declared using the address-of operator (&).
+Syntax: Type &name; or Type& name;
+
+References have some peculiarities which make them inappropriate for many cases. For example,
+references cannot be declared and can only be assigned a value later. Therefore, references
+must be initialized right at the time of the declaration.
+
+This means, no copy is created. If you do not wish to
+change the original and you do not work with call-by-value, you can pass an object as a reference
+to const. The parameter list could for instance be const TYPE &object. Within the function, this
+object can only be read. The compiler also validates this.
+
+In practice, it is often possible to replace one with
+the other. The difference is that you can always assign a different value to a pointer and thus refer
+to another variable. A reference, on the other hand, is the substitute for the passed variable and
+can no longer be referenced to another target variable after the passing of the parameter.
