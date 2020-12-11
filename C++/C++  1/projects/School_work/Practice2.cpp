@@ -3,11 +3,12 @@
 using namespace std;
 int main()
 {
- int x=18, *z;
- z=&x;
- cout << "Own address of pointer z: = " << &z << endl;
- cout << "Value of variable x: " << *z << endl;
- cout << " The address of variable x stored in z is" << z << endl;
- cout << "Address of variable x is: " << &x << endl;
- system("pause");
+int array[]={5,10,15,20,25};
+cout << "The address of the first array is: " << array << endl;
+// or
+cout << "The address of the first array is: " << &array[0] << endl;
+cout << "The value of the first array element is: " << *array << endl;
+// or
+cout << " The value of the first array element is: " << array[0] << endl;
+system("pause");
 }
