@@ -35,11 +35,23 @@ private:
     string Firstname;
     string Middlename;
     Date Dob;
-
+    int Holidays;
+    static int counter= 0;
 public:
+    void GetData();
+    void ShowData();
     Employee(){}
 
 };
+
+void Employee::GetData()
+{
+    cout << "--Enter Data --" << endl;
+    cout << "First name: ";
+    cin >> FirstName;
+    cout << "Surname: ";
+    cin >> Surname;
+}
 int main()
 {cout << "Testing Program" << endl;
 system("pause");

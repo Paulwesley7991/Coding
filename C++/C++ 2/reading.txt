@@ -1,0 +1,62 @@
+To open a file, an object of the fstream class is required. Afterwards the file is opened or newly
+created by calling the open()function. By calling the close() function the file is closed again.
+To edit a file, it must be opened first. This involves
+• specifying a file name, which can contain a path, and
+• defining a so-called file opening mode.
+If there is no path specification, the file has to be located in the same directory. The file opening
+mode determines in particular whether the file is opened for reading or writing, or both.
+
+
+Various opening modes can be combined using the bitwise operator |.
+
+To read from files, the stream extraction operator >> is used, which works with fstream objects in
+the same way as with cin. The file is read as if you were typing the content on the keyboard.
+To be able to read spaces from the files, you must use the getline()member function. A pointer to
+char is passed as the first parameter, and the maximum number of characters that fits into the
+buffer is passed as the second parameter.
+
+There is, however, also a global function called getline(), which does not have fstream as its first
+parameter but an object of the ifstream type. This function also works with the string standard class
+and also accepts objects of the string type as second parameter. The example from above would
+look like this:
+
+The division by 0 in the example would normally cause a program crash. Such an error is called an
+exception. If such an exception occurs within a try-block, the processing is continued in the catchblock that handles the exception.
+
+Within the brackets of the catch statement, the type of exception to be caught by this block is
+specified. It is possible to define several catch blocks for different types in a row. The three dots
+following the catch statement are a placeholder for all types and denote the general exception
+handling case so that all exceptions that have not yet been handled get caught at this point. This
+general catch must always be the very last error handling block.
+
+Not all errors always lead to exceptional situations, but only exceptions can be caught by catch. It
+is therefore particularly interesting to be able to define your own exceptional situations. The throw
+command triggers such an exception. It terminates the processing immediately and directly jumps
+to the appropriate exception handling.
+
+If the catch block has a variable of the int type as parameter, it only handles exceptions thrown by
+a throw-command, with a number as argument. To edit other parameters, another catch block with
+a different parameter type is simply appended. To handle all the other exceptions, the general
+catch statement with the three dots as parameters can be added at the very end. The matching
+catch blocks are selected according to their parameters. However, a catch always has only one
+parameter. An automatic type conversion as with functions is not implemented here. For example,
+if you use the throw command with argument 1.2, the matching catch must have double as
+parameter and not float, because floating point constants are treated by the compiler as double by
+default. The following example shows several catch blocks for different data types.
+
+You can declare pointers for any integral data type (int, char, long, short and so on) and also for
+objects (arrays, structures, classes, or instances).
+
+2.2 Dereferencing of pointers
+To dereference a pointer means to return the content of the memory position to which the pointer
+points.
+
+To dereference a pointer means to determine the content of the memory area (of the object) to
+which the pointer points. The *operator is used to declare a pointer (int *x;) and to dereference it(int
+z = *x;)
+
+The use of pointers and the use of arrays are very similar. The differences are summarized below:
+• A pointer has a memory location containing a value that can be used as an address.
+• An array (i.e. array name) has no storage space in this sense. An array is a symbolic name
+for the address (= the beginning) of a memory area. If the name of an array variable is used
+without the index operator ([ ]), the address of the first array element is returned.
