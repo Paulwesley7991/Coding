@@ -1,52 +1,37 @@
 #include <cstdlib>
 #include <iostream>
+#include <ctime>
 using namespace std;
-int main()
+class Person
 {
- int x = 3;
- int *pointer = &x;
- cout << "Address which pointer points to: " << pointer << endl;
- cout << "Address of x: " << &x << endl;
- cout << "Address of pointer: " << &pointer << endl << endl;
- cout << "Value of x: " << x << endl;
- cout << "Value of pointer: " << *pointer << endl << endl;
- cout << "Enter value for x: ";
- cin >> x;
- cout << endl;
- cout << "Value of x: " << x << endl;
- cout << "Value of pointer: " << *pointer << endl << endl;
- cout << "Enter value for pointer: ";
- cin >> *pointer;
- cout << endl;
- cout << "Value of x: " << x << endl;
- cout << "Value of pointer: " << *pointer << endl << endl;
- system("pause");
- int array[5] = {1,2,3,4,5};
- cout << "Address of the first array element: " << array << endl;
- cout << "Address of the first array element: " << &array << endl;
- cout << "Address of the first array element: " << &array[0] << endl;
- cout << endl;
- cout << "Value of the first array element: " << array[0] << endl;
- cout << "Value of the first array element: " << *array << endl << endl;
- cout << endl;
- cout << "Value of the third pointer array: " << array[2] << endl;
- //cout << "Value of the third pointer array: " << *arraypointer[2]; // Does not work!
- cout << "Value of the third pointer array: " << *(array+2) << endl;
- cout << "Display address of the array: "<<endl;
- for(int i = 0; i < 5; ++i)
- {
- cout << "&array[" << i << "] = " << &array[i] << endl;
+ friend class ListOfPeople; // friend declaration so that the other class has access to the private elements
+ // Data members
+ private:
+ string surname;
+ string firstname;
+ int yearOfBirth;
+ Person* Successor; // Concatenation pointer
+ // Member functions
+ public:
+ Person (string n, string f, int y): surname(n), firstname(f), yearOfBirth(y) {}
+
+ string getSurname () const { return surname; }
+ string getFirstname () const { return firstname; }
+ int getYearOfBirth() const { return yearOfBirth; }
+
+ void calculateAge () {
+ // Determine current year
+ time_t timestamp;
+ tm *date;
+ timestamp = time(0);
+ date = localtime(&timestamp);
+ int actYear = date->tm_year+1900;
+
+ cout << "Age: " << actYear- yearOfBirth<< " years old" << endl;
  }
- cout << endl;
- cout << "Display value of the array: "<<endl;
- for(int i = 0; i < 5; ++i)
- {
- cout << "array[" << i << "] = " << array[i] << endl;
+ Person* next () { return Successor; } // Returns the successor of my current object
+ void displayData() {
+ cout << "Surname: " << surname << ", First name: " << firstname;
+ cout << ", Year of Birth: " << yearOfBirth << endl;
  }
- system("pause");
- // SUMMARY:
- // &array[0] is equal to array
- // *array is equal to array[0]
- // &array[1] is equal to array+1
- // *(arraypointer+1) is equal to array[1]
-}
+};

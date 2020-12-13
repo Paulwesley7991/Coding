@@ -89,3 +89,13 @@ can no longer be referenced to another target variable after the passing of the 
 The following member access operators are used for direct access to members (data members
 and functions) of a class: “.” and “->”. The difference between the two operators is that "." is
 applied to a variable of a class type, while "->" is used for pointers to class types.
+
+One of the best known or even the best-known dynamic data structure is the singly linked list. It
+consists of elements that are connected to each other via pointers (usually called successors).
+
+We can build up a list of any number of people by linking individual people together using a
+concatenation pointer. More precisely, one person uses the concatenation pointer to point to
+another person.
+
+The elements of a linked list are called nodes. Each node of a list must consist of two
+components:
