@@ -35,3 +35,64 @@ class Person
  cout << ", Year of Birth: " << yearOfBirth << endl;
  }
 };
+
+class ListOfPeople
+{
+ private:
+ Person* Headpointer;
+ Person* tmp;
+ public:
+ ListOfPeople():Headpointer(0) {};
+// Insert head pointer at the beginning of the list
+ void insert (Person * kp)
+ {
+ kp-> Successor = Headpointer; // My successor will be my new beginning
+ Headpointer = kp; // and its successor is the new object I have created
+ }
+ // Remove a person from the beginning of the list
+ Person * remove ()
+ {
+ if (Headpointer!= 0)
+ Headpointer = tmp-> Successor;
+
+ return Headpointer;
+ }
+
+ // Access to the first person in the list
+ Person * begin () { return Headpointer; }
+
+ // Check if list is empty
+ bool empty () const { return Headpointer == 0; } // Returns true if head pointer is 0, otherwise false
+};
+
+int main ()
+{
+ListOfPeople list; // Create empty list
+char ans = 'y';
+string surname="", firstname="";
+int yearOfBirth=0;
+Person * kp;
+// Filling the list
+while (ans != 'n')
+{
+ cout << "Surname: " << endl;
+ cin >> surname;
+ cout << endl << "First name: " << endl;
+ cin >> firstname;
+ cout << endl << "Year of birth: " << endl;
+ cin >> yearOfBirth;
+ kp = new Person(surname, firstname, yearOfBirth);
+ list.insert (kp);
+ cout << "Go on (y/n)" << endl;
+ cin >> ans;
+}
+// Display list
+for (kp=list.begin(); kp != 0; kp = kp->next()) // Start at the beginning of the list; Continue until NULL is reached.
+kp->displayData(); // After each loop pass
+// my new object is its successor
+// Empty list
+while (! list.empty ()) // As long as my list is not empty
+ list.remove (); // delete every single object (always the head pointer)
+system("pause");
+return 0;
+}
