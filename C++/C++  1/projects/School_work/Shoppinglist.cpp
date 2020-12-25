@@ -391,4 +391,5 @@ void empty()
 	while(!list.empty())
 		list.clear();
 	cout << endl << "Shopping list is empty!" << endl;
+    //checking
 }
