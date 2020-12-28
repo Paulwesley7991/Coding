@@ -194,7 +194,7 @@ class ListOfReservations
 
 ListOfReservations list;
 
-void list_initialize(); // Fills the list with the values from the file
+void list_initialize(int*); // Fills the list with the values from the file
 void Make_Reservation(int, string); // Add item
 void Display(int); // Displays all items and price
 void Delete(int); // Delete reservation
@@ -207,10 +207,10 @@ int main()
 	int selection = 1;
 	Reservations *tmpObject = NULL;
 	ofstream fileWriter;
-	string MotorCycle_List = {}
-	int Booked_MotorCycle;
+	string MotorCycle_List[] = {"Suzuki Bandit","Honda TransAlp","BMW F 650 GS","Kawasaki ZZR1400"};
+	int Available_MotorCycle[] = {1,1,1,1};
 
-	list_initialize();
+	list_initialize(Available_MotorCycle);
     cout << "\n\t\tWELCOME TO MOTORCYCLE MANAGEMENT\n\n" << endl;           //Output of First page
 	do
     {
@@ -218,7 +218,7 @@ int main()
         cout << "\t***** SELECT OPTION ******\n" << endl;
         cout << "[1]. MotorCycle Reservation" << endl;
         cout << "[2]. Return MotorCycle"
-        cout << "[3]. Cancle MotorCycle Reservation" << endl;
+        cout << "[3]. Display available MotorCycle" << endl;
         cout << "[4]. Search for MotorCycle Reservations" << endl;
         cout << "[5]. Display MotorCycle Reservations list" << endl;
         cout << "[6]. Empty MotorCycle Reservation list." << endl;
@@ -241,10 +241,12 @@ int main()
                             << tmpObject->CUSTOMER.Surname<<"\t" << tmpObject->MotorCycle_Type <<"\t" << tmpObject->CUSTOMER.Dob.day<<"\t"
                             << tmpObject->CUSTOMER.Dob.month"\t" << tmpObject->CUSTOMER.Dob.year<<"\t" << tmpObject->CUSTOMER.Street
 							<<"\t" << tmpObject->CUSTOMER.StreetNo<<"\t" << tmpObject->CUSTOMER.PLZ<<"\t" << tmpObject->CUSTOMER.City<<"\t"
-							<< tmpObject->CUSTOMER.PhoneNumber <<"\t" << tmpObject->CUSTOMER.LicenseNo<<"\t" << tmpObject->Status<<endl;
+							<< tmpObject->CUSTOMER.PhoneNumber <<"\t" << tmpObject->CUSTOMER.LicenseNo<<"\t" << tmpObject->Status
+							<<Available_MotorCycle[0]<<"\t"<<Available_MotorCycle[1]<<"\t"<<Available_MotorCycle[2]<<"\t"<<Available_MotorCycle[3]<<endl;
 						}
 						if(list.begin()!=0)
 							cout << "List saved to file MotorcycleManagement.txt!" << endl;
+							cout << "\n\nTHANK YOU FOR YOUR TIME" <<endl;
 					}
 					else
 						cout << "File MotorcycleManagement.txt cannot be opened. Old list remains." << endl;
@@ -252,17 +254,31 @@ int main()
 	                break;
 	                }
 	                case 1:{
+	                    if(Available_MotorCycle[0] == 0 && Available_MotorCycle[1] == 0
+                           && Available_MotorCycle[2] == 0 && Available_MotorCycle[3] == 0){
+                            cout<< "No Available MotorCycle, all have being Reserved"<<endl;
+                            system("pause");
+                            break;
+                           }
+                           else{
 	                    int select;
 	                    system("cls");
-	                    cout << "\tPlease select the following option:"<< endl;
-	                    cout << "[1] Already a Customer?" <<endl;
-	                    cout << "[2] New Customer ?" <<endl;
+	                    cout << "\t\tPlease select MotorCycle type:"<< endl;
+                        for(int i = 0; i<4; i++)
+                            {
+                                if(Available_MotorCycle[i] == 0)
+                                continue;
+                                else{
+                                    cout<<"["<< i << "] "<< MotorCycle_List[i]<< endl;
+                                    }
+                            }
+                        cout<<"Please Enter:";
 	                    cin >> select;
-                        Make_Reservation(select);
+                        Make_Reservation(select, MotorCycle_List);
                         system("pause");
                         system("cls");
                         break;
-	                    }
+	                    }}
                     case 2:{
                         if(list.begin()!=0)
 	            	{
@@ -275,9 +291,20 @@ int main()
                     }
                     case 3:{
                         if(list.begin()!=0)
-	            	{
+	            	{  int counter = 1;
                         system("cls");
-                        Delete(1);
+                        cout<< "\t\tLIST AVAILABLE MOTORCYCLE FOR RESERVATION"<< endl;
+                        for(int i = 0; i<4; i++)
+                            {
+                                if(Available_MotorCycle[i] == 0)
+                                continue;
+                                else{
+                                    cout<<"["<< counter<< "] "<< MotorCycle_List[i]<< endl;
+                                    counter ++;
+                                }
+                            }
+                            system("pause");
+                            break;
                     }else
 						cout << "List is empty." << endl;
                     system("pause");
@@ -328,9 +355,10 @@ int main()
     } while (selection != 0);
     system("pause");
 	return 0;
+	system("pause");
 }
 
-void list_initialize()
+void list_initialize(int *array)
 { string Firstname;
   string Lastname;
   string Phonenumber;
@@ -351,9 +379,10 @@ void list_initialize()
 	if(fileReader.good())
     {
 		while(fileReader >> Customer_No >> Firstname>> Lastname >> MotorCycle_type>> day >>
-              month >> year >> Street >> StreetNo >> PLZ >> City >> Phonenumber >> LicenseNo >> Status)
+              month >> year >> Street >> StreetNo >> PLZ >> City >> Phonenumber >> LicenseNo >>
+              Status >> array[0] >> array[1] >> array[2] >> array[3])
     	{
-			reserve = new Reservations( Customer_No , Firstname, Lastname , MotorCycle_type , day ,
+		Reservations *reserve = new Reservations( Customer_No , Firstname, Lastname , MotorCycle_type , day ,
               month , year , Street ,StreetNo , PLZ , City , Phonenumber , LicenseNo , Status);
         	list.insert(reserve);
      	}
@@ -361,9 +390,12 @@ void list_initialize()
 
     fileReader.close();
 }
-void Make_Reservation(int select, string MotorCycle_choice)
+void Make_Reservation(int select, string MotorCycle_List[])
 {
-
+  Reservations *reserve = new Reservations();
+  cin>> reserve;
+  list.insert(reserve);
+		cout << "\n\nRESERVATION HAVE BEING MADE" << endl;
 }
 void Display(int num)
 {
