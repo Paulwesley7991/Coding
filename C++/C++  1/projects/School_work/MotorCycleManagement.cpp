@@ -195,7 +195,7 @@ class ListOfReservations
 ListOfReservations list;
 
 void list_initialize(); // Fills the list with the values from the file
-void Make_Reservation(int); // Add item
+void Make_Reservation(int, string); // Add item
 void Display(int); // Displays all items and price
 void Delete(int); // Delete reservation
 void empty();  // Empty shopping reservation list
@@ -207,6 +207,8 @@ int main()
 	int selection = 1;
 	Reservations *tmpObject = NULL;
 	ofstream fileWriter;
+	string MotorCycle_List = {}
+	int Booked_MotorCycle;
 
 	list_initialize();
     cout << "\n\t\tWELCOME TO MOTORCYCLE MANAGEMENT\n\n" << endl;           //Output of First page
@@ -358,5 +360,72 @@ void list_initialize()
     }
 
     fileReader.close();
+}
+void Make_Reservation(int select, string MotorCycle_choice)
+{
+
+}
+void Display(int num)
+{
+    switch(num)
+    {
+        case 1:
+            {   int num;
+                cout<< "\tList of Names of Customers" <<endl;
+                Reservations object;
+                for (object=list.begin(); object != 0; object = object->next())
+	                  cout<< "["<<object->CUSTOMER.Customer_NO<<"] "<< object->CUSTOMER.FirstName <<" "<< object->CUSTOMER.Surname<<endl;
+                cout<< "Please enter Customer Number:" <<endl;
+                cin >> num;
+                if(num <=0)
+			       throw (string)"Customer Number";
+                Reservations *tmpReserve = NULL;
+	            tmpReserve = list.find(num);
+                cout << tmpReserve;
+                break;
+            }
+        case 2:
+            {
+                Reservations object;
+                int no = 1;
+                for (object=list.begin(); object != 0; object = object->next())
+	                  {
+		                  cout << "\t\t***** RESERVATION [" << no << "] *****\t";
+                          cout<< object;
+                          no++;
+                      }
+             }
+    }
+}
+void Delete(int num)
+{
+    switch(num)
+    {  case 1: {
+        int num;
+        string choice;
+        cout<< "\tList of Names of Customers" <<endl;
+        Reservations object;
+        for (object=list.begin(); object != 0; object = object->next())
+             cout<< "["<<object->CUSTOMER.Customer_NO<<"] "<< object->CUSTOMER.FirstName <<" "<< object->CUSTOMER.Surname<<endl;
+        cout<< "Please enter Customer Number:" <<endl;
+        cin >> num;
+        if(num <=0)
+           throw (string)"Customer Number";
+        cout<< "Are you sure you want to Cancel Reservation for this Customer?? (Yes/No)"<<endl;
+        cin >> choice;
+        if(choice == "Yes"){
+        list.remove(num);
+	    cout << "Reservation has been Canceled and deleted." << endl;
+	    break;}
+	    break;
+   }
+    case 2:
+        {
+            while(!list.empty())
+		    list.clear();
+            cout << endl << "Reservation List have been cleared" << endl;
+            break;
+        }
+    }
 }
 
