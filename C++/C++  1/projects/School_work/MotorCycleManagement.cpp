@@ -36,7 +36,7 @@ void Date::showData()
 class Customer
 {
   private:
-    string firstName;
+    string FirstName;
     string Surname;
     string Street;
     string StreetNo;
@@ -96,8 +96,30 @@ class Reservations
     private:
         Customer CUSTOMER;
         string MotorCycle_Type;
-        Reservations Successor;              // Concatenation pointer
+        Reservations Successor;
+        string Status;          // Concatenation pointer
     public:
+        Reservations(){}
+        Reservations(unsigned int Customer_No , string Firstname. string Lastname ,
+                     string MotorCycle_type, unsigned int day , unsigned int month ,
+                     unsigned int year , string Street , string StreetNo , unsigned int PLZ ,
+                     string City , string Phonenumber , string LicenseNo , string Status)
+                     {
+                         this->CUSTOMER.FirstName =Firstname;
+                         this->CUSTOMER.Lastname  = Lastname;
+                         this->CUSTOMER.PhoneNumber = Phonenumber;
+                         this->CUSTOMER.LicenseNo  = LicenseNo;
+                         this->CUSTOMER.Street  = Street;
+                         this->CUSTOMER.City   = City;
+                         this->CUSTOMER.StreetNo = StreetNo;
+                         this->Status = Status;
+                         this->MotorCycle_Type = MotorCycle_type;
+                         this->CUSTOMER.Dob.day = day;
+                         this->CUSTOMER.Dob.month = month;
+                         this->CUSTOMER.Dob.year = year;
+                         this->CUSTOMER.PLZ = PLZ;
+                         this->CUSTOMER.Customer_NO = Customer_No;
+                     }
         Reservations* next () { return Successor; } // Returns the successor of my current object
 
 };
@@ -173,15 +195,168 @@ class ListOfReservations
 ListOfReservations list;
 
 void list_initialize(); // Fills the list with the values from the file
-void Make_Reservation(); // Add item
-void modify(); // Modify item
-void display(); // Displays all items and price
-void remove(); // Delete item
-void empty(); // Empty shopping list
+void Make_Reservation(int); // Add item
+void Display(int); // Displays all items and price
+void Delete(int); // Delete reservation
+void empty();  // Empty shopping reservation list
+void Return(); //Return MotorCycle
 
 int main()
 {
+    string insert;
+	int selection = 1;
+	Reservations *tmpObject = NULL;
+	ofstream fileWriter;
 
+	list_initialize();
+    cout << "\n\t\tWELCOME TO MOTORCYCLE MANAGEMENT\n\n" << endl;           //Output of First page
+	do
+    {
+    	system("cls");
+        cout << "\t***** SELECT OPTION ******\n" << endl;
+        cout << "[1]. MotorCycle Reservation" << endl;
+        cout << "[2]. Return MotorCycle"
+        cout << "[3]. Cancle MotorCycle Reservation" << endl;
+        cout << "[4]. Search for MotorCycle Reservations" << endl;
+        cout << "[5]. Display MotorCycle Reservations list" << endl;
+        cout << "[6]. Empty MotorCycle Reservation list." << endl;
+        cout << "[0]. Exit program" << endl;
+        cout << "Your selection: ";
+        cin >> selection;
+        cout << endl;
+
+        try
+        {
+	        switch (selection)
+	        {
+	            case 0: {// End
+	            	fileWriter.open("MotorcycleManagement.txt");
+	            	if(fileWriter.good())
+	            	{
+						for (tmpObject=list.begin(); tmpObject != 0; tmpObject = tmpObject->next())
+                            {
+							fileWriter << tmpObject->CUSTOMER.Customer_NO << "\t" << tmpObject->CUSTOMER.firstName << "\t"
+                            << tmpObject->CUSTOMER.Surname<<"\t" << tmpObject->MotorCycle_Type <<"\t" << tmpObject->CUSTOMER.Dob.day<<"\t"
+                            << tmpObject->CUSTOMER.Dob.month"\t" << tmpObject->CUSTOMER.Dob.year<<"\t" << tmpObject->CUSTOMER.Street
+							<<"\t" << tmpObject->CUSTOMER.StreetNo<<"\t" << tmpObject->CUSTOMER.PLZ<<"\t" << tmpObject->CUSTOMER.City<<"\t"
+							<< tmpObject->CUSTOMER.PhoneNumber <<"\t" << tmpObject->CUSTOMER.LicenseNo<<"\t" << tmpObject->Status<<endl;
+						}
+						if(list.begin()!=0)
+							cout << "List saved to file MotorcycleManagement.txt!" << endl;
+					}
+					else
+						cout << "File MotorcycleManagement.txt cannot be opened. Old list remains." << endl;
+                    cout << "Goodbye!" << endl;
+	                break;
+	                }
+	                case 1:{
+	                    int select;
+	                    system("cls");
+	                    cout << "\tPlease select the following option:"<< endl;
+	                    cout << "[1] Already a Customer?" <<endl;
+	                    cout << "[2] New Customer ?" <<endl;
+	                    cin >> select;
+                        Make_Reservation(select);
+                        system("pause");
+                        system("cls");
+                        break;
+	                    }
+                    case 2:{
+                        if(list.begin()!=0)
+	            	{
+                        system("cls");
+                        Return();
+                    }else
+						cout << "List is empty." << endl;
+                    system("pause");
+					break;
+                    }
+                    case 3:{
+                        if(list.begin()!=0)
+	            	{
+                        system("cls");
+                        Delete(1);
+                    }else
+						cout << "List is empty." << endl;
+                    system("pause");
+					break;
+                    }
+                    case 4:{
+                        if(list.begin()!=0)
+	            	{
+                        system("cls");
+                        Display(1);
+                    }else
+						cout << "List is empty." << endl;
+                    system("pause");
+					break;
+                    }
+                    case 5:{
+                        if(list.begin()!=0)
+	            	{
+                        system("cls");
+                        Display(2);
+                    }else
+						cout << "List is empty." << endl;
+					system("pause");
+					break;
+                    }
+                    case 6:{
+                        if(list.begin()!=0)
+	            	{
+                        system("cls");
+                        Delete(2);
+	            	}else
+						cout << "List is empty." << endl;
+					system("pause");
+					break;
+                    }
+                    default:{
+                    cerr << "Incorrect input" << endl;
+	            	system("pause");
+	                break;
+                    }
+	        }
+        }
+        catch(string msg)
+		{
+			cout << msg << " cannot be negative or null!" << endl << "Transaction canceled." << endl;
+			system("pause");
+		}
+    } while (selection != 0);
+    system("pause");
+	return 0;
 }
 
-    // Determine current year
+void list_initialize()
+{ string Firstname;
+  string Lastname;
+  string Phonenumber;
+  string LicenseNo;
+  string Street;
+  string City;
+  string StreetNo;
+  string Status;
+  string MotorCycle_type;
+  unsigned int day;
+  unsigned int month;
+  unsigned int year;
+  unsigned int PLZ;
+  unsigned int Customer_No;
+
+    ifstream fileReader("MotorcycleManagement.txt", ios::out);
+
+	if(fileReader.good())
+    {
+		while(fileReader >> Customer_No >> Firstname>> Lastname >> MotorCycle_type>> day >>
+              month >> year >> Street >> StreetNo >> PLZ >> City >> Phonenumber >> LicenseNo >> Status)
+    	{
+			reserve = new Reservations( Customer_No , Firstname, Lastname , MotorCycle_type , day ,
+              month , year , Street ,StreetNo , PLZ , City , Phonenumber , LicenseNo , Status);
+        	list.insert(reserve);
+     	}
+    }
+
+    fileReader.close();
+}
+
