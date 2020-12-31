@@ -20,7 +20,7 @@ public:  //Member Function of date class
     short Get_month(){return month;}
     unsigned int Get_year(){return year;}
     void Set_day(short day){this-> day = day;}
-    void Set_month(short month){this-> day = month;}
+    void Set_month(short month){this-> month = month;}
     void Set_year(unsigned int year){this-> year = year;}
 };
 
@@ -68,6 +68,8 @@ class Customer
     string Get_PhoneNumber(){return PhoneNumber;}
     string Get_LicenseNo(){return LicenseNo;}
     Date Get_Dob(){return Dob;}
+    friend istream& operator>> (istream& is, Customer& a);
+    friend ostream& operator<< (ostream& os, Customer& a);
     };
 
 class Reservations
@@ -102,8 +104,6 @@ class Reservations
                          CUSTOMER.Set_CustomerNo(Customer_No);
                      }
         Reservations* next () { return Successor; } // Returns the successor of my current object
-        friend istream& operator>> (istream& is, Reservations& a);
-        friend ostream& operator<< (ostream& os, Reservations& b);
         Customer Get_Customer(){return CUSTOMER;}
         string Get_MotorCycle_Type(){return MotorCycle_Type;}
         string Get_Status(){return Status;}
@@ -182,7 +182,7 @@ class ListOfReservations
       bool empty () const { return Headpointer == 0; } // Returns true if head pointer is 0, otherwise false
 };
 
-istream& operator>> (istream& is, Reservations& a) {
+istream& operator>> (istream& is, Customer& a) {
   //Operator Overloading of the input >>
   string String_input;
   unsigned int int_input;
@@ -191,10 +191,10 @@ istream& operator>> (istream& is, Reservations& a) {
   cout << "--Enter Data --" << endl;
     cout << "First name: ";
     is >> String_input;
-    a.CUSTOMER.Set_FirstName(String_input);
+    a.Set_FirstName(String_input);
     cout << "Surname: ";
     is >> String_input;
-    a.CUSTOMER.Set_Surname(String_input);
+    a.Set_Surname(String_input);
     //enter date datas
     cout << "Enter Date of birth:\n";
     cout << "Day: ";
@@ -203,67 +203,70 @@ istream& operator>> (istream& is, Reservations& a) {
     is >> month;
     cout << "Year: ";
     is >> int_input;
-    a.CUSTOMER.Set_Dob(day,month,int_input);
+    a.Set_Dob(day,month,int_input);
     cout << "Street: ";
     is >> String_input;
-    a.CUSTOMER.Set_StreetNo(String_input);
+    a.Set_Street(String_input);
     cout << "Street No: ";
     is >> String_input;
-    a.CUSTOMER.Set_StreetNo(String_input);
+    a.Set_StreetNo(String_input);
     cout << "City: ";
     is >> String_input;
-    a.CUSTOMER.Set_City(String_input);
+    a.Set_City(String_input);
     cout << "Postal Code: ";
     is >> int_input;
-    a.CUSTOMER.Set_PLZ(int_input);
+    a.Set_PLZ(int_input);
+    cout << "Please enter Mobile Number: ";
+    is >> String_input;
+    a.Set_PhoneNumber(String_input);
     cout << "Please enter your Driving License Number: ";
     is >> String_input;
-    a.CUSTOMER.Set_LicenseNo(String_input);
+    a.Set_LicenseNo(String_input);
  return is;
 }
 // Output
-ostream& operator<< (ostream& os,  Reservations& a) {
+ostream& operator<< (ostream& os,  Customer& a) {
  //output data of the reservation class
-    os<<"\t\t**** RESERVATION FOR "<<a.Get_MotorCycle_Type()<<" *****" <<endl;
-    os<<"CUSTOMER NUMBER: "<<a.CUSTOMER.Get_Customer_NO()<<endl;
-    os<<"FirstName: "<<a.CUSTOMER.Get_FirstName()<<endl;
-    os<<"Surname: "<<a.CUSTOMER.Get_Surname()<<endl;
-    os<<"Date of Birth: "<<a.CUSTOMER.Get_Dob().Get_day()<<"."<<a.CUSTOMER.Get_Dob().Get_month()<<"."<<a.CUSTOMER.Get_Dob().Get_year()<<endl;
-    os<<"Address: "<<a.CUSTOMER.Get_Street()<<" "<<a.CUSTOMER.Get_StreetNo() <<endl;
-    os<<"City: "<<a.CUSTOMER.Get_City()<<endl;
-    os<<"Postal Code: "<<a.CUSTOMER.Get_PLZ()<<endl;
-    os<<"Phone Number: "<<a.CUSTOMER.Get_PhoneNumber()<<endl;
-    os<<"License Number: "<<a.CUSTOMER.Get_LicenseNo()<<endl;
-    os<<"Status of Reservation: "<<a.Get_Status()<<endl;
+    os<<"CUSTOMER NUMBER: "<<a.Get_Customer_NO()<<endl;
+    os<<"FirstName: "<<a.Get_FirstName()<<endl;
+    os<<"Surname: "<<a.Get_Surname()<<endl;
+    os<<"Date of Birth: "<<a.Get_Dob().Get_day()<<"."<<a.Get_Dob().Get_month()<<"."<<a.Get_Dob().Get_year()<<endl;
+    os<<"Address: "<<a.Get_Street()<<" "<<a.Get_StreetNo() <<endl;
+    os<<"City: "<<a.Get_City()<<endl;
+    os<<"Postal Code: "<<a.Get_PLZ()<<endl;
+    os<<"Phone Number: "<<a.Get_PhoneNumber()<<endl;
+    os<<"License Number: "<<a.Get_LicenseNo()<<endl;
  return os;
 }
 ListOfReservations list;
 
 int list_initialize(int[]); // Fills the list with the values from the file
-void Make_Reservation(int, int&, string[]); // Make a Reservation
+void Make_Reservation(int, int*, string[]); // Make a Reservation
 void Display(int); // Displays Reservations or Customer
-void Delete(int); // Delete reservation
+void Delete(int, int*, string *); // Delete reservation
 void empty();  // Empty reservation list
-void Return(); //Return MotorCycle
+
 
 int main()  //Main Program
 {       //Declaration and initialization of Variables
     string insert;
 	int selection = 1;
 	int counter = 0;
+	string s;
 	Reservations *tmpObject = NULL;
 	ofstream fileWriter;
-	string MotorCycle_List[] = {"Suzuki Bandit","Honda TransAlp","BMW F 650 GS","Kawasaki ZZR1400"};   //list of MotorCycle
+	string MotorCycle_List[] = {"Suzuki_Bandit","Honda_TransAlp","BMW_F_650_GS","Kawasaki_ZZR1400"};   //list of MotorCycle
 	int Available_MotorCycle[] = {1,1,1,1};   //list of Available MotorCycle
 
 	counter = list_initialize(Available_MotorCycle);    //Initialize the List with saved file and return counter
-    cout << "\n\t\tWELCOME TO MOTORCYCLE MANAGEMENT\n\n" << endl;           //Output of First page
+    cout << "\t\tWELCOME TO MOTORCYCLE MANAGEMENT\n\n" << endl;           //Output of First page
+    system("pause");
 	do
     {
     	system("cls");
         cout << "\t***** SELECT OPTION ******\n" << endl;
         cout << "[1]. MotorCycle Reservation" << endl;
-        cout << "[2]. Return MotorCycle";
+        cout << "[2]. Return MotorCycle"<<endl;
         cout << "[3]. Display available MotorCycle" << endl;
         cout << "[4]. Search for MotorCycle Reservations" << endl;
         cout << "[5]. Display MotorCycle Reservations list" << endl;
@@ -287,7 +290,7 @@ int main()  //Main Program
                             << tmpObject->CUSTOMER.Get_Surname()<<"\t" << tmpObject->Get_MotorCycle_Type() <<"\t" << tmpObject->CUSTOMER.Get_Dob().Get_day()<<"\t"
                             << tmpObject->CUSTOMER.Get_Dob().Get_month()<<"\t" << tmpObject->CUSTOMER.Get_Dob().Get_year()<<"\t" << tmpObject->CUSTOMER.Get_Street()
 							<<"\t" << tmpObject->CUSTOMER.Get_StreetNo()<<"\t" << tmpObject->CUSTOMER.Get_PLZ()<<"\t" << tmpObject->CUSTOMER.Get_City()<<"\t"
-							<< tmpObject->CUSTOMER.Get_PhoneNumber() <<"\t" << tmpObject->CUSTOMER.Get_LicenseNo()<<"\t" << tmpObject->Get_Status()
+							<< tmpObject->CUSTOMER.Get_PhoneNumber() <<"\t" << tmpObject->CUSTOMER.Get_LicenseNo()<<"\t" << tmpObject->Get_Status()<<"\t"
 							<<Available_MotorCycle[0]<<"\t"<<Available_MotorCycle[1]<<"\t"<<Available_MotorCycle[2]<<"\t"<<Available_MotorCycle[3]<<endl;
 						}
 						if(list.begin()!=0)
@@ -306,11 +309,15 @@ int main()  //Main Program
                             system("pause");
                             break;
                            }
-                           else{   //Displays Available MotorCycle
-	                    int select;
-	                    system("cls");
-	                    cout << "\t\tPlease select MotorCycle type:"<< endl;
-                        for(int i = 0; i<4; i++)
+                        else{
+                            cout<<"Do you have a valid Drivers license? (Yes/No)"<<endl;
+	                        cin>> s;
+	                        if(s == "Yes"){
+                            system("cls"); //Displays Available MotorCycle
+	                        int select;
+	                        system("cls");
+	                        cout << "\t\tPlease select MotorCycle type:"<< endl;
+                            for(int i = 0; i<4; i++)
                             {
                                 if(Available_MotorCycle[i] == 0)
                                 continue;
@@ -318,25 +325,31 @@ int main()  //Main Program
                                     cout<<"["<< i << "] "<< MotorCycle_List[i]<< endl;
                                     }
                             }
-                        cout<<"Please Enter:";
-	                    cin >> select;
-                        Make_Reservation(select, counter ,MotorCycle_List);  //calling the make reservation function
+                            cout<<"Please Enter:";
+                            cin >> select;
+                            Make_Reservation(select, &counter ,MotorCycle_List);  //calling the make reservation function
+                            Available_MotorCycle[select] = 0;
+                            system("pause");
+                            system("cls");
+                            break;
+                }else{
+                    cout<<"You need to have a valid Driver License to Make a Reservation!!!"<<endl;
                         system("pause");
                         system("cls");
                         break;
+	                    }
 	                    }}
                     case 2:{
                         if(list.begin()!=0)
 	            	{
                         system("cls");
-                        Return();
+                        Delete(1,Available_MotorCycle,MotorCycle_List);
                     }else
 						cout << "List is empty." << endl;
                     system("pause");
 					break;
                     }
-                    case 3:{
-                        if(list.begin()!=0)
+                    case 3:
 	            	{  int counter = 1;
                         system("cls");
                         cout<< "\t\tLIST AVAILABLE MOTORCYCLE FOR RESERVATION"<< endl;
@@ -351,10 +364,6 @@ int main()  //Main Program
                             }
                             system("pause");
                             break;
-                    }else
-						cout << "List is empty." << endl;
-                    system("pause");
-					break;
                     }
                     case 4:{
                         if(list.begin()!=0)
@@ -380,7 +389,7 @@ int main()  //Main Program
                         if(list.begin()!=0)
 	            	{
                         system("cls");
-                        Delete(2);
+                        Delete(2,Available_MotorCycle,MotorCycle_List);
 	            	}else
 						cout << "List is empty." << endl;
 					system("pause");
@@ -403,7 +412,7 @@ int main()  //Main Program
 	return 0;
 	system("pause");
 }
-
+//Program Initializer function
 int list_initialize(int *arr)
 { string Firstname;
   string Lastname;
@@ -414,14 +423,15 @@ int list_initialize(int *arr)
   string StreetNo;
   string Status;
   string MotorCycle_type;
-  unsigned int day;
-  unsigned int month;
+  short day;
+  short month;
   unsigned int year;
   unsigned int PLZ;
   unsigned int Customer_No;
   int counter =0;
 
-    ifstream fileReader("MotorcycleManagement.txt", ios::out);
+//Reading contents of file "MotorcycleManagement.txt"
+    ifstream fileReader("MotorcycleManagement.txt", ios::in);
 
 	if(fileReader.good())
     {
@@ -440,18 +450,17 @@ int list_initialize(int *arr)
     return counter;
 }
 
-void Make_Reservation(int select, int &counter, string MotorCycle_List[])
+void Make_Reservation(int select, int *counter, string MotorCycle_List[])
 {
-  //Reservations *reserve = new Reservations();
-  Reservations reserve;
-  cin>> reserve;
-  Reservations * test = &reserve;
-  list.insert(test);
+  Reservations *object = new Reservations(); //Create new object with newly assigned address
+  cin>> object->CUSTOMER;
+  list.insert(object);
 		cout << "\n\nRESERVATION HAVE BEING MADE" << endl;
-		reserve.CUSTOMER.Set_CustomerNo(++counter);
-		reserve.Set_MotorCycle_Type(MotorCycle_List[select]);
+		object->CUSTOMER .Set_CustomerNo(++(*counter));
+		object->Set_MotorCycle_Type(MotorCycle_List[select]);
+		object->Set_Status("Reserved");
 }
-void Display(int num)
+void Display(int num)               //Display Function
 {
     switch(num)
     {
@@ -467,7 +476,9 @@ void Display(int num)
 			       throw (string)"Customer Number";
                 Reservations *tmpReserve = NULL;
 	            tmpReserve = list.find(num);
-                cout << tmpReserve;
+	            cout<<"\t\t**** RESERVATION FOR "<< tmpReserve->Get_MotorCycle_Type()<<" *****" <<endl;
+                cout << tmpReserve->CUSTOMER;
+                cout<<"Status of Reservation: "<<tmpReserve->Get_Status()<<endl;
                 break;
             }
         case 2:
@@ -476,14 +487,16 @@ void Display(int num)
                 int no = 1;
                 for (object=list.begin(); object != 0; object = object->next())
 	                  {
-		                  cout << "\t\t***** RESERVATION [" << no << "] *****\t";
-                          cout<< object;
+		                  cout << "\t\t RESERVATION [" << no << "]";
+		                  cout<<"\t\t**** RESERVATION FOR "<< object->Get_MotorCycle_Type()<<" *****" <<endl;
+                          cout<< object->CUSTOMER;
+                          cout<<"Status of Reservation: "<<object->Get_Status()<<endl;
                           no++;
                       }
              }
     }
 }
-void Delete(int num)
+void Delete(int num, int *arr, string *arr2)      //Delete Function
 {
     switch(num)
     {  case 1: {
@@ -497,11 +510,21 @@ void Delete(int num)
         cin >> num;
         if(num <=0)
            throw (string)"Customer Number";
-        cout<< "Are you sure you want to Cancel Reservation for this Customer?? (Yes/No)"<<endl;
+        cout<< "!!!By returning this MotorCycle, your reservation would be canceled!!!\nAre you sure you want to Cancel Reservation for this Customer?? (Yes/No)"<<endl;
         cin >> choice;
         if(choice == "Yes"){
+        Reservations *tmpReserve = NULL;
+        tmpReserve = list.find(num);
+        string s = tmpReserve->Get_MotorCycle_Type();
+        for(int i = 0; i<4; i++)
+            {
+                if(s == arr2[i]){
+                    arr[i] = 1;
+                    break;
+                }
+            }
         list.remove(num);
-	    cout << "Reservation has been Canceled and deleted." << endl;
+	    cout << "MotorCycle Successfully Returned. Reservation has been Canceled and deleted." << endl;
 	    break;}
 	    break;
    }
