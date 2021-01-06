@@ -1,0 +1,2 @@
+1	Ikenna	Abonyi	BMW_F_650_GS	13	4	1995	Jungwirthstrasse	5	84347	Pfarrkirchen	+491775989793	HAFHBZJDBJ	Reserved	1	1	0	0
+2	Enerst	Gargd	Kawasaki_ZZR1400	13	6	1839	mnbdj	4	80802	Munich	+49127372738	JDSBSDOIA	Reserved	1	1	0	0

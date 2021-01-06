@@ -22,6 +22,7 @@ istream &operator>>(istream &is, Date& dt)
     cout << "Day: ";
     int tmp = 0;
     do
+        ++
     {
     is >> dt.day;
     if(dt.day >= 1)
