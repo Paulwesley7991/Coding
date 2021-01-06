@@ -31,3 +31,53 @@ However, this version has a catch: If the next character can also be displayed i
 octal form, this character will also be interpreted. For example, in the word 'Oberfl\x84che' (Oberfläche=surface), '\x84' would not be replaced with the character 'ä', but 'x84c' with the number
 '2124'. However, there is a little trick for this problem:
 cout << "Oberfl\x84 \bche!" << endl;
+
+
+8.4 Overloading functions/member functions
+Overloading means defining several member functions (= functions) with the same name, but differing in terms of the number and type of parameters.
+
+8.5 Static
+8.5.1 Static variables
+Static variables retain their value and are not deleted when leaving their frame of reference
+
+
+Declaration of static member variables
+In C++, a class variable is declared within the class using the keyword “static”. This is why they are
+also referred to as static data elements.
+Example:
+static int number;
+The number variable is declared as a static element of the Customer class. It stores the number of
+customers, i.e. the number of existing objects of the Customer type.
+Definition of static member variables
+Static data elements of a class occupy memory space, even if no object of the class exists. Like
+member functions they must therefore be defined and initialized outside the class in a source file.
+The class reference is created using the scope resolution operator (::).
+Example:
+int Customer : : number = 0; // There is no object yet
+
+Not inherited are
+- Friendship with another friend class
+- A class-specific assignment operator operator=()
+- Constructors and destructors
+
+
+Access rights after derivation::
+Basically, DerivedClass inherits all components of BaseClass, i.e. each instance
+of DerivedClass contains an (anonymous)
+object of the BaseClass type.
+
+This sub-object is created before the additional components of DerivedClass by
+implicitly calling the base class constructor.
+The access right in the base class and
+the access specifier during derivation
+determine the access right to components
+of BaseClass in DerivedClass.
+
+private components of BaseClass are
+generally not accessible in DerivedClass.
+Access to private members is still only
+possible using public member functions of
+BaseClass. By deriving from a class, you
+cannot gain access to private elements.
+
+Important: Static variables must be initialized during their definition.

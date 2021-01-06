@@ -1,3 +1,0 @@
-C:\Users\ikenn\OneDrive\Documents\GitHub\Work\Coding\C++\C++  1\app\Android1\Android1\ARM\Debug\Android1.androidprojAssemblyReference.cache
-C:\Users\ikenn\OneDrive\Documents\GitHub\Work\Coding\C++\C++  1\app\Android1\Android1\ARM\Debug\Android1.apk.recipe
-C:\Users\ikenn\OneDrive\Documents\GitHub\Work\Coding\C++\C++  1\app\Android1\Android1\ARM\Debug\Android1.apk
