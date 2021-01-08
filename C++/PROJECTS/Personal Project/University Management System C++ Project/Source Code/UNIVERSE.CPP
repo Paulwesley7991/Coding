@@ -1,17 +1,17 @@
 //universe.cpp: Uniersity Management System
 
 //Decleration of header files
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 #include <process.h>
-#include <string.h>
+#include <string>
 #include <stdio.h>
 #include <ctype.h>
 #include <conio.h>
 #include <dos.h>
 #include <stdlib.h>
-#include <iomanip.h>
-#include <graphics.h>
+#include <iomanip>
+//#include <graphics>
 
 typedef char option[45] ;
 const int row = 10, col = 10 ;

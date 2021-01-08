@@ -1,0 +1,18 @@
+Database
+
+Build a multiplatform Application:(Windows, Apple, Huawei, Linux)
+---List of items(vehicles,Mobile device, CLothings,Home Appliance, 
+---Variety of each item:-
+     **Vehicle -(1)Cars
+                    **(1)Mercedes
+                      (2)BMW
+               -(2)Trailers
+                    **(1)Man
+    **Mobile Device -(1)Apple
+                     (2)Samsung
+---Search of Items(search engine)
+---Oder Items
+---Add items //Company
+---Delete Items//Company
+---Purchase Items
+---Generate Bill 
