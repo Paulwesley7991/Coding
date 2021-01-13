@@ -1,15 +1,35 @@
 import wx
 
-class MyFrame(wx.Frame):
-    def __int__(self, parent, title):
-        super(MyFrame, self).__init__(parent, title=title)
+class windowClass(wx.Frame):
+    def __init__(self, *args, **kwargs):
+        super(windowClass, self).__init__(*args, **kwargs)
+        self.Center()
+        self.basicGUI()
 
-class Myapp(wx.App):
-    def OnInit(self):
-        self.frame = MyFrame(parent = None, title= "Our First WIndow", (600, 500))
-        self.frame.Show()
+    def basicGUI(self):
 
-        return True
+        panel = wx.Panel(self)
+        menuBar = wx.MenuBar()
+        fileButton = wx.Menu()
+        editButton = wx.Menu()
 
-app = Myapp()
-app.MainLoop()
+        exitItem = fileButton.Append(wx.ID_EXIT, 'Exit','status msg')
+
+        menuBar.Append(fileButton, 'File')
+        menuBar.Append(editButton, 'Edit')
+
+        self.SetMenuBar(menuBar)
+        self.Bind(wx.EVT_MENU, self.Quit, exitItem)
+
+        wx.TextCtrl(panel, pos=(10,10), size = (250,150))
+
+        self.SetTitle('Epic Window')
+        self.Show(True)
+
+    def Quit(self, e):
+        self.Close()
+
+if __name__ =='__main__':
+    app = wx.App()
+    windowClass(None,title='epic window')
+    app.MainLoop()
