@@ -13,6 +13,12 @@ private:
     string Brand;
     string Model;
 
+public:
+    Vehicle(){};
+    friend template<class T> istream& operator>> (istream& is, T& );
+    friend template<class T> ostream& operator<< (ostream& os, T&);
+    template<class T> Setter(T);
+    template<class T> T Getter();
 };
 int main()
 {
